@@ -1,0 +1,33 @@
+.matches-section {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.matches-section h3 {
+  color: #e65100;
+  font-size: 16px;
+  margin-bottom: 14px;
+}
+
+.donor-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff8f0;
+  border: 1px solid #ffe0b2;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+
+.donor-meta {
+  font-size: 12px;
+  color: #888;
+}
+
+.donor-contact {
+  font-weight: 600;
+  color: #e65100;
+  font-size: 14px;
+}
