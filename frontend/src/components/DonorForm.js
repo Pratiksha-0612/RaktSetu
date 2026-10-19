@@ -51,7 +51,7 @@ function DonorForm() {
         }
       };
 
-      await axios.post('http://localhost:5000/api/donors/register', payload);
+      await axios.post('https://raktsetu-backend-up1l.onrender.com/api/donors/register', payload);
       setIsError(false);
       setMessage('Donor registered successfully!');
       setFormData({

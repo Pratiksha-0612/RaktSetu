@@ -11,16 +11,21 @@ function AdminDashboard() {
   const [requests, setRequests] = useState([]);
   const [matchResult, setMatchResult] = useState(null);
 
-  useEffect(() => {
-    axios.get('http://localhost:5000/api/admin/stats').then(res => setStats(res.data));
-    axios.get('http://localhost:5000/api/donors/all').then(res => setDonors(res.data));
-    axios.get('http://localhost:5000/api/requests/all').then(res => setRequests(res.data));
-  }, []);
+ useEffect(() => {
+    axios.get('https://raktsetu-backend-up1l.onrender.com/api/admin/stats')
+        .then(res => setStats(res.data));
+
+    axios.get('https://raktsetu-backend-up1l.onrender.com/api/donors/all')
+        .then(res => setDonors(res.data));
+
+    axios.get('https://raktsetu-backend-up1l.onrender.com/api/requests/all')
+        .then(res => setRequests(res.data));
+}, []);
 
   if (!isAdmin) return <Navigate to="/admin/login" />;
 
   const runMatch = async (requestId) => {
-    const res = await axios.get(`http://localhost:5000/api/requests/match/${requestId}`);
+    const res = await axios.get(`https://raktsetu-backend-up1l.onrender.com/api/requests/match/${requestId}`);
     setMatchResult({ requestId, ...res.data });
   };
 

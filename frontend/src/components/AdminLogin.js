@@ -14,7 +14,7 @@ function AdminLogin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/auth/admin/login', { email, password });
+      await axios.post('https://raktsetu-backend-up1l.onrender.com/api/auth/admin/login', { email, password });
       setIsAdmin(true);
       navigate('/admin/dashboard');
     } catch (error) {

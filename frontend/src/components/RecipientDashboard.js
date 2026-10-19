@@ -16,7 +16,7 @@ function RecipientDashboard() {
 
   const loadMyRequests = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/requests/by-recipient/${recipient._id}`);
+      const res = await axios.get(`https://raktsetu-backend-up1l.onrender.com/api/requests/by-recipient/${recipient._id}`);
       setMyRequests(res.data);
     } catch (error) { console.error(error); }
   };
@@ -38,7 +38,7 @@ function RecipientDashboard() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/requests/create', { ...formData, recipientId: recipient._id });
+      await axios.post('https://raktsetu-backend-up1l.onrender.com/api/requests/create', { ...formData, recipientId: recipient._id });
       setMsg('Request submitted successfully!');
       setShowForm(false);
       loadMyRequests();

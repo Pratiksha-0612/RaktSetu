@@ -11,7 +11,7 @@ function DonorDashboard() {
 
   const loadMatches = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/donors/${donor._id}/matches`);
+      const res = await axios.get(`https://raktsetu-backend-up1l.onrender.com/api/donors/${donor._id}/matches`);
       setMatches(res.data.matches);
     } catch (error) { console.error(error); }
   };
@@ -22,7 +22,7 @@ function DonorDashboard() {
 
   const respond = async (requestId, response) => {
     try {
-      await axios.post(`http://localhost:5000/api/requests/${requestId}/respond`, { donorId: donor._id, response });
+      await axios.post(`https://raktsetu-backend-up1l.onrender.com/api/requests/${requestId}/respond`, { donorId: donor._id, response });
       setMsg(`Response recorded: ${response}`);
       loadMatches();
     } catch (error) {

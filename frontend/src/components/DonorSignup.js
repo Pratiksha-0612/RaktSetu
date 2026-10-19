@@ -31,7 +31,7 @@ function DonorSignup() {
           noRecentDonation: formData.noRecentDonation
         }
       };
-      await axios.post('http://localhost:5000/api/auth/donor/signup', payload);
+      await axios.post('https://raktsetu-backend-up1l.onrender.com/api/auth/donor/signup', payload);
       setIsError(false); setMsg('Account created! Redirecting to login...');
       setTimeout(() => navigate('/donor/login'), 1200);
     } catch (error) {

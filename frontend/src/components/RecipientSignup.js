@@ -14,7 +14,7 @@ function RecipientSignup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/auth/recipient/signup', formData);
+      await axios.post('https://raktsetu-backend-up1l.onrender.com/api/auth/recipient/signup', formData);
       setIsError(false); setMsg('Account created! Redirecting to login...');
       setTimeout(() => navigate('/recipient/login'), 1200);
     } catch (error) {

@@ -14,7 +14,7 @@ function RecipientLogin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/recipient/login', { email, password });
+      const res = await axios.post('https://raktsetu-backend-up1l.onrender.com/api/auth/recipient/login', { email, password });
       setRecipient(res.data.recipient);
       navigate('/recipient/dashboard');
     } catch (error) {
