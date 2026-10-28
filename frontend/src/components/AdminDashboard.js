@@ -11,21 +11,16 @@ function AdminDashboard() {
   const [requests, setRequests] = useState([]);
   const [matchResult, setMatchResult] = useState(null);
 
- useEffect(() => {
-    axios.get('https://raktsetu-backend-up1l.onrender.com/api/admin/stats')
-        .then(res => setStats(res.data));
-
-    axios.get('https://raktsetu-backend-up1l.onrender.com/api/donors/all')
-        .then(res => setDonors(res.data));
-
-    axios.get('https://raktsetu-backend-up1l.onrender.com/api/requests/all')
-        .then(res => setRequests(res.data));
-}, []);
+  useEffect(() => {
+    axios.get('http://localhost:5000/api/admin/stats').then(res => setStats(res.data));
+    axios.get('http://localhost:5000/api/donors/all').then(res => setDonors(res.data));
+    axios.get('http://localhost:5000/api/requests/all').then(res => setRequests(res.data));
+  }, []);
 
   if (!isAdmin) return <Navigate to="/admin/login" />;
 
   const runMatch = async (requestId) => {
-    const res = await axios.get(`https://raktsetu-backend-up1l.onrender.com/api/requests/match/${requestId}`);
+    const res = await axios.get(`http://localhost:5000/api/requests/match/${requestId}`);
     setMatchResult({ requestId, ...res.data });
   };
 
@@ -56,11 +51,11 @@ function AdminDashboard() {
 
       <h3 className="section-title">Emergency Requests ({requests.length})</h3>
       <table className="dash-table">
-        <thead><tr><th>Patient</th><th>Blood Group</th><th>City</th><th>Status</th><th>Action</th></tr></thead>
+        <thead><tr><th>Patient</th><th>Blood Group</th><th>Hospital</th><th>City</th><th>Status</th><th>Action</th></tr></thead>
         <tbody>
           {requests.map(r => (
             <tr key={r._id}>
-              <td>{r.patientName}</td><td>{r.bloodGroup}</td><td>{r.city}</td>
+              <td>{r.patientName}</td><td>{r.bloodGroup}</td><td>{r.hospitalName}</td><td>{r.city}</td>
               <td><span className={`status-badge status-${r.status}`}>{r.status}</span></td>
               <td><button className="accept-btn" onClick={() => runMatch(r._id)}>Run Match</button></td>
             </tr>
@@ -71,10 +66,20 @@ function AdminDashboard() {
       {matchResult && (
         <>
           <h3 className="section-title">Match Results ({matchResult.matchedDonorsCount} found, within {matchResult.searchRadiusKm} km)</h3>
+
+          {matchResult.request && (
+            <div className="match-card" style={{ borderLeft: '4px solid #c0392b', display: 'block' }}>
+              <div><strong>Patient:</strong> {matchResult.request.patientName} ({matchResult.request.bloodGroup}, {matchResult.request.unitsRequired} unit(s), {matchResult.request.urgency})</div>
+              <div><strong>Hospital:</strong> {matchResult.request.hospitalName}</div>
+              <div><strong>Address:</strong> {matchResult.request.hospitalAddress || 'Not provided'}, {matchResult.request.city}</div>
+              <div><strong>Contact:</strong> {matchResult.request.contactPerson} — {matchResult.request.contactPhone}</div>
+            </div>
+          )}
+
           {matchResult.matchedDonors.map(d => (
             <div className="match-card" key={d._id}>
               <div><strong>{d.name}</strong> — {d.bloodGroup} — {d.city}
-                <div className="match-meta">{d.distanceKm} km away</div>
+                <div className="match-meta">{d.distanceKm} km away • 📞 {d.phone}</div>
               </div>
             </div>
           ))}

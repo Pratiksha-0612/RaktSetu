@@ -30,6 +30,10 @@ const requestSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Hospital name is required']
   },
+    hospitalAddress: {
+    type: String,
+    default: ''
+  },
   city: {
     type: String,
     required: [true, 'City is required']
@@ -57,10 +61,19 @@ const requestSchema = new mongoose.Schema({
     enum: ['Pending', 'Fulfilled', 'Expired'],
     default: 'Pending'
   },
-  respondedDonors: [
+    respondedDonors: [
     {
       donorId: { type: mongoose.Schema.Types.ObjectId, ref: 'Donor' },
       response: { type: String, enum: ['Accepted', 'Declined'] },
+      progress: {
+        type: String,
+        enum: ['Accepted', 'On the way', 'Reached hospital', 'Donated'],
+        default: 'Accepted'
+      },
+      progressUpdatedAt: { type: Date },
+      currentLat: { type: Number },
+      currentLng: { type: Number },
+      locationUpdatedAt: { type: Date },
       respondedAt: { type: Date, default: Date.now }
     }
   ],

@@ -3,12 +3,13 @@ import axios from 'axios';
 import './RequestForm.css';
 
 function RequestForm() {
-  const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState({
     patientName: '',
     bloodGroup: '',
     unitsRequired: '',
     urgency: '',
     hospitalName: '',
+    hospitalAddress: '',
     city: '',
     contactPerson: '',
     contactPhone: ''
@@ -20,7 +21,10 @@ function RequestForm() {
   const [searching, setSearching] = useState(false);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+          setFormData({
+        patientName: '', bloodGroup: '', unitsRequired: '', urgency: '',
+        hospitalName: '', hospitalAddress: '', city: '', contactPerson: '', contactPhone: ''
+      });
   };
 
   const handleSubmit = async (e) => {
@@ -108,7 +112,12 @@ function RequestForm() {
               <input type="text" name="city" value={formData.city} onChange={handleChange} required />
             </div>
           </div>
-
+          <div className="form-row">
+            <div className="form-group" style={{ width: '100%' }}>
+              <label>Hospital Address</label>
+              <input type="text" name="hospitalAddress" value={formData.hospitalAddress} onChange={handleChange} placeholder="Street, area, landmark" required />
+            </div>
+          </div>
           <div className="form-row">
             <div className="form-group">
               <label>Contact Person</label>
